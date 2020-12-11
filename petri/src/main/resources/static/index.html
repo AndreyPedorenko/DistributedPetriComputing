@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Petri</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/sockjs.min.js"></script>
+    <script src="/js/stomp.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-6">
+            <form>
+                <div class="d-flex flex-column">
+                    <label for="net">Petri-object model JSON goes here</label>
+                    <textarea id="net" rows="50" cols="100">
+{
+  "petriObjects": [
+    {
+      "petriObjectId": 1,
+      "petriObjectName": "P1",
+      "places":[
+        {
+          "placeId": 1,
+          "placeName": "P1",
+          "marking": 1
+        }
+        ],
+      "transitions":[
+        {
+          "transitionId": 1,
+          "transitionName": "T1",
+          "probability": 1,
+          "delayGenerator":
+          {
+            "type": "CONSTANT",
+            "firstParam": 1
+          },
+          "collectStatistics": true,
+          "arcsIn":[
+            {
+              "placeId": 1
+            }
+            ],
+          "arcsOut":[
+            {
+              "placeId": 1
+            }
+            ]
+        }
+        ]
+    },
+    {
+      "petriObjectId": 2,
+      "petriObjectName": "PO2",
+      "places":[
+        {
+          "placeId": 2,
+          "placeName": "P2"
+        },
+        {
+          "placeId": 3,
+          "placeName": "P3",
+          "collectStatistics": true
+        }
+        ],
+      "transitions":[
+        {
+          "transitionId": 2,
+          "transitionName": "T2",
+          "delayGenerator":
+          {
+            "type": "CONSTANT",
+            "firstParam": 1
+          },
+          "collectStatistics": true,
+          "arcsIn":[
+            {
+              "placeId": 2
+            }
+            ],
+          "arcsOut":[
+            {
+              "placeId": 3
+            }
+            ]
+        }
+        ]
+    }
+    ],
+  "externalArcs":[
+    {
+      "fromPetriObjectId": 1,
+      "fromTransitionId": 1,
+      "toPetriObjectId": 2,
+      "toPlaceId": 2
+    }
+    ],
+  "timeModelling": 1000
+}
+                    </textarea>
+                    <button id="submit-net" class="btn btn-default" type="submit">Calculate</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <div class="d-flex flex-column">
+                <label for="stats">Run statistics will appear here</label>
+                <textarea id="stats" rows="50" cols="100"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
